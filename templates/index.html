@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="span8">
+      {% for c in created %}
+      c
+      {% endfor %}
+    </div>
+    <div class="span8">
+      {% for a in assigned %}
+      a
+      {% endfor %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="span8">
+      <form method="GET" action="http://yahoo.co.jp">
+        <input type="submit" value="add task" class="primary"/>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

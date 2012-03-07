@@ -1,0 +1,34 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/static/bootstrap.min.css" />
+  <title>{% block title %}Raku Queue{% endblock %}</title>
+  <style type="text/css">
+    body {
+    padding-top: 80px !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar" data-scrollspy="scrollspy">
+    <div class="topbar-inner" >
+      <div class="container">
+        <ul class="nav">
+          <li><a class="brand" href="http://diary.tachibanakikaku.com/" target="_blank"><img src="/static/tp_logo.png" /></a></li>
+          <li><a href="http://aegif.jp/news/index.html" target="_blank">source code</a></li>
+          <li><a href="http://alfresco-jp.tachibanakikaku.com/" target="_blank">alfresco JP</a></li>
+          <li><a href="{{ url }}">{{ url_linktext }}</a></li>
+        </ul>
+        <ul class="nav secondary-nav">
+          <li>{{quser.g_user}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% block content %}PAGE CONTENT{% endblock %}
+  <div class="row">
+    <div class="span4 offset12"><a href="http://diary.tachibanakikaku.com">
+        <img src="/static/tp_logo.png" border="0" height="50" /></a>
+    </div>
+  </div>
+</body>
+</html>
