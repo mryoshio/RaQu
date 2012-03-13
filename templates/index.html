@@ -1,24 +1,56 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="span8">
-      {% for c in created %}
-      c
-      {% endfor %}
-    </div>
+  <form class="well form-inline" method="POST" action="/add">
+    <!--
+    creator: {{ quser.g_user.nickname }} |
+    assignee: <input type="text" name="assignee" class="input-medium" value="{{ quser.g_user.nickname }}" /> |
+    -->
+    <input type="text" name="title" class="input-small" value="" placeholder="title"/>
+    <textarea name="description" class="input-large" value="" placeholder="description"></textarea>
+    <input type="text" name="deadline" class="span3" placeholder="yyyy/mm/dd HH:mm:ss" />
+    <input type="hidden" name="creator" value="{{ quser.g_user.nickname }}" />
+    <button type="submit" class="btn">Add</button>
+  </form>
+</div>
+
+<div class="container">
+  <table class="table table-striped">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Deadline</th>
+      <th>Done?</th>
+      <th>#</th>
+      <th>#</th>
+    </tr>
+    {% for c in created %}
+    <tr>
+      <td>
+        {{ c.title }}
+      </td>
+      <td>
+        {{ c.description }}
+      </td>
+      <td>
+        {{ c.deadline }}
+      </td>
+      <td>
+        {{ c.done }}
+      </td>
+      <td>update</td>
+      <td>delete</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+    <!--
     <div class="span8">
       {% for a in assigned %}
-      a
+        <div class="row">{{ a.title }}</div>
       {% endfor %}
     </div>
-  </div>
-  <div class="row">
-    <div class="span8">
-      <form method="GET" action="/go_add">
-        <input type="submit" value="add task" class="primary"/>
-      </form>
-    </div>
+    -->
   </div>
 </div>
 {% endblock %}
