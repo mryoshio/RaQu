@@ -59,8 +59,19 @@ class AddTask(Base):
         t.put()
         self.redirect('/')
 
+class DeleteTask(Base):
+    def post(self):
+        key = self.request.get("key");
+        if key == None or key == '':
+            pass
+        else:
+            qtask = QTask.get(key)
+            logging.debug(qtask)
+            qtask.delete()
+        self.redirect('/')
+
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.DEBUG)
-    application = webapp.WSGIApplication([('/', MainPage), ('/add', AddTask)], debug=True)
+    application = webapp.WSGIApplication([('/', MainPage), ('/add', AddTask), ('/delete', DeleteTask)], debug=True)
     run_wsgi_app(application)
 

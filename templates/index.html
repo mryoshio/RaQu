@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="container">
   <form class="well form-inline" method="POST" action="/add">
     <!--
@@ -21,8 +22,7 @@
       <th>Description</th>
       <th>Deadline</th>
       <th>Done?</th>
-      <th>#</th>
-      <th>#</th>
+      <th></th>
     </tr>
     {% for c in created %}
     <tr>
@@ -38,8 +38,12 @@
       <td>
         {{ c.done }}
       </td>
-      <td>update</td>
-      <td>delete</td>
+      <td>
+        <form action="/delete" method="POST">
+          <input type="submit" class="btn btn-primary" value="Delete" />
+          <input type="hidden" value="{{c.key}}" name="key" />
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </table>
@@ -53,4 +57,6 @@
     -->
   </div>
 </div>
+
 {% endblock %}
+
