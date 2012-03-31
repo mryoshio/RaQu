@@ -10,17 +10,7 @@ from google.appengine.api import mail
 from model import QUser, QTask
 
 class Base(webapp.RequestHandler):
-    def get_quser(self, u):
-        q = QUser.gql("WHERE g_user = :1 LIMIT 1", u)
-        if q.count() < 1:
-            u = QUser(g_user=users.get_current_user())
-            u.put()
-        else:
-            u = q.get()
-        return u
-
-    def get_current_quser(self):
-        return self.get_quser(users.get_current_user())
+    pass
 
 class Reminder(Base):
     def get(self):
@@ -34,7 +24,7 @@ class Reminder(Base):
                                to="fuga@example.com",
                                subject="Reminder: %s" % u.title,
                                body="""deadline is comming in next 24 hours.""")
-                    
+
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.DEBUG)
     application = webapp.WSGIApplication([('/reminder', Reminder)], debug=True)
