@@ -1,6 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
 
+<script type="text/javascript">
+var timeout = 500;
+var closetimer = 0;
+var ddmenuitem = 0;
+
+function status_open()
+{
+  status_canceltimer();
+  status_close();
+  ddmenuitem = $(this).find('li').css('visibility', 'visible');
+}
+
+function status_close()
+{
+  if(ddmenuitem) ddmenuitem.css('visibility', 'hidden');
+}
+
+function status_timer()
+{
+  closetimer = window.setTimeout(status_close, timeout);
+}
+
+function status_canceltimer()
+{
+  if(closetimer)
+  {
+    window.clearTimeout(closetimer);
+    closetimer = null;
+  }
+}
+
+$(document).ready(function()
+{
+  $('.status').bind('mouseover', status_open);
+  $('.status').bind('mouseout', status_timer);
+  $('.status li').bind('click', function(){
+    key = $(this).parent().attr("value");
+    newstatus = $(this).text();
+    $(this).parent().find(' > a').text(newstatus);
+    $.post("/update", {"key":key, "status":newstatus});
+  });
+});
+</script>
+
 <div class="container">
   <form class="well form-inline" method="POST" action="/add">
     <!--
@@ -36,7 +80,10 @@
         {{ c.deadline }}
       </td>
       <td>
-        {{ c.done }}
+        <ul class="status" value="{{c.key}}"><a href="#" class="link">{{ c.done }}</a>
+          <li><a href="#">True</a></li>
+          <li><a href="#">False</a></li>
+        </ul>
       </td>
       <td>
         <form action="/delete" method="POST">

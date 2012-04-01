@@ -1,4 +1,4 @@
-import cgi, datetime, logging, os
+import cgi, datetime, logging, os, ast
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -59,6 +59,17 @@ class AddTask(Base):
         t.put()
         self.redirect('/')
 
+class UpdateStatus(Base):
+    def post(self):
+        key = self.request.get("key")
+        sta = self.request.get("status")
+        if key == None or key == '':
+            pass
+        else:
+            qtask = QTask.get(key)
+            qtask.done = ast.literal_eval(sta)
+            qtask.put()
+
 class DeleteTask(Base):
     def post(self):
         key = self.request.get("key");
@@ -72,6 +83,6 @@ class DeleteTask(Base):
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.DEBUG)
-    application = webapp.WSGIApplication([('/', MainPage), ('/add', AddTask), ('/delete', DeleteTask)], debug=True)
+    application = webapp.WSGIApplication([('/', MainPage), ('/add', AddTask), ('/delete', DeleteTask), ('/update', UpdateStatus)], debug=True)
     run_wsgi_app(application)
 

@@ -1,0 +1,44 @@
+*{
+  list-style-type:none;
+}
+
+.status
+{
+  margin:0;
+  padding:0;
+  width:70px;
+  background:#FFFFFF;
+}
+
+.status a
+{
+  display:block;
+  text-decoration:none;
+  border-right:1px solid white;
+  white-space:nowarp;
+}
+
+.status a:hover
+{
+  background:#EFEFEF;
+}
+
+.status li
+{
+  margin:0;
+  padding:0;
+  position:relative;
+  visibility:hidden;
+  width:70px;
+  border-top:1px solid white;
+}
+
+.status li a
+{
+  background:#A9C111;
+}
+
+.status li a:hover
+{
+  background:#8EA300;
+}
