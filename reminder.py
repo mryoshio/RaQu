@@ -20,8 +20,9 @@ class Reminder(Base):
                               (d.year, d.month, d.day, d.hour, d.minute, d.second))
         for u in list:
             if (u.done == False):
-                mail.send_mail(sender="hoge@example.com",
-                               to="fuga@example.com",
+                sender_rcpt = u.assignee.g_user.email()
+                mail.send_mail(sender=sender_rcpt,
+                               to=sender_rcpt,
                                subject="Reminder: %s" % u.title,
                                body="""deadline is comming in next 24 hours.""")
 
